@@ -36,6 +36,9 @@ class iDeviceClient extends EventEmitter {
         if (!_checkSerial(serial)) return Promise.reject('invalid serial number');
         let cmd = 'ideviceinfo -u ' + serial + ' -x';
         if (option) {
+            if (('key' in option) && (option['key'])) {
+                cmd += ' -k ' + option['key'];
+            }
             if (('simple' in option) && (option['simple'])) {
                 cmd += ' -s';
             }
