@@ -16,8 +16,12 @@ class iDeviceClient extends EventEmitter {
         super();
     }
 
-    listDevices() {
-        return exec('idevice_id -l').then((stdout) => {
+    listDevices(option) {
+        let cmd = 'idevice_id -l'
+        if (('usb_only' in option) && (option['usb_only'])) {
+            cmd += ' -u'
+        }
+        return exec(cmd).then((stdout) => {
             let devices = stdout.split('\n');
             let result = [];
             for (let device of devices) {
