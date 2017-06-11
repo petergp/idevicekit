@@ -17,6 +17,7 @@ class iDeviceClient extends EventEmitter {
     }
 
     listDevices(option) {
+        if (!option) { option = {} }
         let cmd = 'idevice_id -l'
         if (('usb_only' in option) && (option['usb_only'])) {
             cmd += ' -u'
